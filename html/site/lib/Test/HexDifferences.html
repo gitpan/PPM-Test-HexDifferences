@@ -1,0 +1,233 @@
+<?xml version="1.0" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<!-- saved from url=(0017)http://localhost/ -->
+<script language="JavaScript" src="../../../displayToc.js"></script>
+<script language="JavaScript" src="../../../tocParas.js"></script>
+<script language="JavaScript" src="../../../tocTab.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../scineplex.css">
+<title>Test::HexDifferences - Test binary as hexadecimal string</title>
+<link rel="stylesheet" href="../../../Active.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:" />
+</head>
+
+<body>
+
+
+<!-- INDEX BEGIN -->
+<div name="index">
+<script>writelinks('__top__',3);</script>
+<h1><a>Test::HexDifferences - Test binary as hexadecimal string</a></h1>
+<p><a name="__index__"></a></p>
+
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#version">VERSION</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#example">EXAMPLE</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#subroutines_methods">SUBROUTINES/METHODS</a></li>
+	<ul>
+
+		<li><a href="#subroutine_eq_or_dump_diff">subroutine eq_or_dump_diff</a></li>
+		<li><a href="#subroutine_dumped_eq_dump_or_diff">subroutine dumped_eq_dump_or_diff</a></li>
+	</ul>
+
+	<li><a href="#diagnostics">DIAGNOSTICS</a></li>
+	<li><a href="#configuration_and_environment">CONFIGURATION AND ENVIRONMENT</a></li>
+	<li><a href="#dependencies">DEPENDENCIES</a></li>
+	<li><a href="#incompatibilities">INCOMPATIBILITIES</a></li>
+	<li><a href="#bugs_and_limitations">BUGS AND LIMITATIONS</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+	<li><a href="#author">AUTHOR</a></li>
+	<li><a href="#license_and_copyright">LICENSE AND COPYRIGHT</a></li>
+</ul>
+
+<hr name="index" />
+</div>
+<!-- INDEX END -->
+
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p>Test::HexDifferences - Test binary as hexadecimal string</p>
+<p>
+</p>
+<hr />
+<h1><a name="version">VERSION</a></h1>
+<p>0.002</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<pre>
+    <span class="keyword">use</span> <span class="variable">Test::HexDifferences</span><span class="operator">;</span>
+</pre>
+<pre>
+    <span class="variable">eq_or_dump_diff</span><span class="operator">(</span>
+        <span class="variable">$got</span><span class="operator">,</span>
+        <span class="variable">$expected</span><span class="operator">,</span>
+    <span class="operator">);</span>
+</pre>
+<pre>
+    <span class="variable">eq_or_dump_diff</span><span class="operator">(</span>
+        <span class="variable">$got</span><span class="operator">,</span>
+        <span class="variable">$expected</span><span class="operator">,</span>
+        <span class="variable">$test_name</span><span class="operator">,</span>
+    <span class="operator">);</span>
+</pre>
+<pre>
+    <span class="variable">eq_or_dump_diff</span><span class="operator">(</span>
+        <span class="variable">$got</span><span class="operator">,</span>
+        <span class="variable">$expected</span><span class="operator">,</span>
+        <span class="operator">{</span>
+            <span class="string">address</span> <span class="operator">=&gt;</span> <span class="variable">$start_address</span><span class="operator">,</span>
+            <span class="string">format</span>  <span class="operator">=&gt;</span> <span class="string">"%a : %4C : %d\n"</span><span class="operator">,</span>
+        <span class="operator">}</span>
+        <span class="variable">$test_name</span><span class="operator">,</span>
+    <span class="operator">);</span>
+</pre>
+<p>If <code>$got</code> or <code>$expected</code> is <a href="../../../lib/pods/perlfunc.html#undef"><code>undef</code></a> or a reference,
+the hexadecimal formatter is off.
+Then <code>eq_or_dump_diff</code> is the same like <code>eq_or_diff</code> of
+<a href="../../../lib/Test/Differences.html">Test::Differences</a>.</p>
+<pre>
+    <span class="variable">dumped_eq_dump_or_diff</span><span class="operator">(</span>
+        <span class="variable">$got_value</span><span class="operator">,</span>
+        <span class="variable">$expected_dump</span><span class="operator">,</span>
+    <span class="operator">);</span>
+</pre>
+<pre>
+    <span class="variable">dumped_eq_dump_or_diff</span><span class="operator">(</span>
+        <span class="variable">$got_value</span><span class="operator">,</span>
+        <span class="variable">$expected_dump</span><span class="operator">,</span>
+        <span class="variable">$test_name</span><span class="operator">,</span>
+    <span class="operator">);</span>
+</pre>
+<pre>
+    <span class="variable">dumped_eq_dump_or_diff</span><span class="operator">(</span>
+        <span class="variable">$got_value</span><span class="operator">,</span>
+        <span class="variable">$expected_dump</span><span class="operator">,</span>
+        <span class="operator">{</span>
+            <span class="string">address</span> <span class="operator">=&gt;</span> <span class="variable">$start_address</span><span class="operator">,</span>
+            <span class="string">format</span>  <span class="operator">=&gt;</span> <span class="string">"%a : %4C : %d\n"</span><span class="operator">,</span>
+        <span class="operator">}</span>
+        <span class="variable">$test_name</span><span class="operator">,</span>
+    <span class="operator">);</span>
+</pre>
+<p>See <a href="../../../site/lib/Test/HexDifferences/HexDump.html">Test::HexDifferences::HexDump</a>
+for the format description.</p>
+<p>
+</p>
+<hr />
+<h1><a name="example">EXAMPLE</a></h1>
+<p>Inside of this Distribution is a directory named example.
+Run this *.t files.</p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>The are some special cases for testing binary data.</p>
+<ul>
+<li><strong><a name="the_ascii_format_is_not_good_for_e_g_a_length_byte_0x41_displayed_as_a" class="item">The ascii format is not good for e.g. a length byte 0x41 displayed as A.</a></strong>
+
+</li>
+<li><strong><a name="multibyte_values_are_better_shown_as_1_value" class="item">Multibyte values are better shown as 1 value.</a></strong>
+
+</li>
+<li><strong><a name="structured_binary_e_g_2_byte_length_followed_by_bytes_better_are_shown_as_it_is" class="item">Structured binary e.g. 2 byte length followed by bytes better are shown as it is.</a></strong>
+
+</li>
+<li><strong><a name="compare_2_binary_or_1_binary_and_a_dump" class="item">Compare 2 binary or 1 binary and a dump.</a></strong>
+
+</li>
+</ul>
+<p>
+</p>
+<hr />
+<h1><a name="subroutines_methods">SUBROUTINES/METHODS</a></h1>
+<p>
+</p>
+<h2><a name="subroutine_eq_or_dump_diff">subroutine eq_or_dump_diff</a></h2>
+<pre>
+    <span class="variable">eq_or_dump_diff</span><span class="operator">(</span>
+        <span class="variable">$got_value</span><span class="operator">,</span>
+        <span class="variable">$expected_value</span><span class="operator">,</span>
+        <span class="operator">{</span>                                      <span class="comment"># optional hash reference</span>
+            <span class="string">address</span> <span class="operator">=&gt;</span> <span class="variable">$display_start_address</span><span class="operator">,</span> <span class="comment"># optional</span>
+            <span class="string">format</span>  <span class="operator">=&gt;</span> <span class="variable">$format_string</span><span class="operator">,</span>         <span class="comment"># optional</span>
+        <span class="operator">}</span>
+        <span class="variable">$test_name</span><span class="operator">,</span>                            <span class="comment"># optional</span>
+    <span class="operator">);</span>
+</pre>
+<p>
+</p>
+<h2><a name="subroutine_dumped_eq_dump_or_diff">subroutine dumped_eq_dump_or_diff</a></h2>
+<pre>
+    <span class="variable">dumped_eq_dump_or_diff</span><span class="operator">(</span>
+        <span class="variable">$got_value</span><span class="operator">,</span>
+        <span class="variable">$expected_dump</span><span class="operator">,</span>
+        <span class="operator">{</span>                                      <span class="comment"># optional hash reference</span>
+            <span class="string">address</span> <span class="operator">=&gt;</span> <span class="variable">$display_start_address</span><span class="operator">,</span> <span class="comment"># optional</span>
+            <span class="string">format</span>  <span class="operator">=&gt;</span> <span class="variable">$format_string</span><span class="operator">,</span>         <span class="comment"># optional</span>
+        <span class="operator">}</span>
+        <span class="variable">$test_name</span><span class="operator">,</span>                            <span class="comment"># optional</span>
+    <span class="operator">);</span>
+</pre>
+<p>
+</p>
+<hr />
+<h1><a name="diagnostics">DIAGNOSTICS</a></h1>
+<p>nothing</p>
+<p>
+</p>
+<hr />
+<h1><a name="configuration_and_environment">CONFIGURATION AND ENVIRONMENT</a></h1>
+<p>nothing</p>
+<p>
+</p>
+<hr />
+<h1><a name="dependencies">DEPENDENCIES</a></h1>
+<p><a href="../../../lib/Test/Differences.html">Test::Differences</a></p>
+<p><a href="../../../site/lib/Test/HexDifferences/HexDump.html">Test::HexDifferences::HexDump</a></p>
+<p><a href="../../../site/lib/Perl6/Export/Attrs.html">Perl6::Export::Attrs</a></p>
+<p>
+</p>
+<hr />
+<h1><a name="incompatibilities">INCOMPATIBILITIES</a></h1>
+<p>none</p>
+<p>
+</p>
+<hr />
+<h1><a name="bugs_and_limitations">BUGS AND LIMITATIONS</a></h1>
+<p>none</p>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><a href="../../../lib/Test/Differences.html">Test::Differences</a></p>
+<p><a href="../../../site/lib/Test/HexDifferences/HexDump.html">Test::HexDifferences::HexDump</a></p>
+<p>
+</p>
+<hr />
+<h1><a name="author">AUTHOR</a></h1>
+<p>Steffen Winkler</p>
+<p>
+</p>
+<hr />
+<h1><a name="license_and_copyright">LICENSE AND COPYRIGHT</a></h1>
+<p>Copyright (c) 2012,
+Steffen Winkler
+<code>&lt;steffenw at cpan.org&gt;</code>.
+All rights reserved.</p>
+<p>This module is free software;
+you can redistribute it and/or modify it
+under the same terms as Perl itself.</p>
+
+</body>
+
+</html>

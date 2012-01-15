@@ -1,0 +1,255 @@
+<?xml version="1.0" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<!-- saved from url=(0017)http://localhost/ -->
+<script language="JavaScript" src="../../../../displayToc.js"></script>
+<script language="JavaScript" src="../../../../tocParas.js"></script>
+<script language="JavaScript" src="../../../../tocTab.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../../scineplex.css">
+<title>Test::HexDifferences::HexDump - Format binary to hexadecimal strings</title>
+<link rel="stylesheet" href="../../../../Active.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rev="made" href="mailto:" />
+</head>
+
+<body>
+
+
+<!-- INDEX BEGIN -->
+<div name="index">
+<script>writelinks('__top__',4);</script>
+<h1><a>Test::HexDifferences::HexDump - Format binary to hexadecimal strings</a></h1>
+<p><a name="__index__"></a></p>
+
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#version">VERSION</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<ul>
+
+		<li><a href="#format_elements">Format elements</a></li>
+		<ul>
+
+			<li><a href="#data_format">Data format</a></li>
+			<li><a href="#address_format">Address format</a></li>
+			<li><a href="#ascii_format">ascii format</a></li>
+			<li><a href="#repetition">Repetition</a></li>
+			<li><a href="#special_formats">Special formats</a></li>
+		</ul>
+
+		<li><a href="#default_format">Default format</a></li>
+		<li><a href="#complex_formats">Complex formats</a></li>
+	</ul>
+
+	<li><a href="#example">EXAMPLE</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#subroutines_methods">SUBROUTINES/METHODS</a></li>
+	<ul>
+
+		<li><a href="#subroutine_hex_dump">subroutine hex_dump</a></li>
+	</ul>
+
+	<li><a href="#diagnostics">DIAGNOSTICS</a></li>
+	<li><a href="#configuration_and_environment">CONFIGURATION AND ENVIRONMENT</a></li>
+	<li><a href="#dependencies">DEPENDENCIES</a></li>
+	<li><a href="#incompatibilities">INCOMPATIBILITIES</a></li>
+	<li><a href="#bugs_and_limitations">BUGS AND LIMITATIONS</a></li>
+	<li><a href="#see_also">SEE ALSO</a></li>
+	<li><a href="#author">AUTHOR</a></li>
+	<li><a href="#license_and_copyright">LICENSE AND COPYRIGHT</a></li>
+</ul>
+
+<hr name="index" />
+</div>
+<!-- INDEX END -->
+
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p>Test::HexDifferences::HexDump - Format binary to hexadecimal strings</p>
+<p>
+</p>
+<hr />
+<h1><a name="version">VERSION</a></h1>
+<p>0.002</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<pre>
+    <span class="keyword">use</span> <span class="variable">Test::HexDifferences::HexDump</span><span class="operator">;</span>
+</pre>
+<pre>
+    <span class="variable">$string</span> <span class="operator">=</span> <span class="variable">hex_dump</span><span class="operator">(</span>
+        <span class="variable">$binary</span><span class="operator">,</span>
+    <span class="operator">);</span>
+</pre>
+<pre>
+    <span class="variable">$string</span> <span class="operator">=</span> <span class="variable">hex_dump</span><span class="operator">(</span>
+        <span class="variable">$binary</span><span class="operator">,</span>
+        <span class="operator">{</span>
+            <span class="string">address</span> <span class="operator">=&gt;</span> <span class="variable">$start_address</span><span class="operator">,</span>
+            <span class="string">format</span>  <span class="operator">=&gt;</span> <span class="string">"%a : %4C : %d\n"</span><span class="operator">,</span>
+        <span class="operator">}</span>
+    <span class="operator">);</span>
+</pre>
+<p>
+</p>
+<h2><a name="format_elements">Format elements</a></h2>
+<p>Every format element in the format string is starting with % like sprintf.</p>
+<p>
+</p>
+<h3><a name="data_format">Data format</a></h3>
+<p>It is not very clever to use little-endian formats for tests.
+There is a fallback to bytes if multibyte formats can not displayed.</p>
+<pre>
+ %C  - unsigned char
+ %S  - unsigned 16-bit
+ %S&lt; - unsigned 16-bit, little-endian
+ %S&gt; - unsigned 16-bit, big-endian
+ %v  - unsigned 16-bit, little-endian
+ %n  - unsigned 16-bit, big-endian
+ %L  - unsigned 32-bit
+ %L&lt; - unsigned 32-bit, little-endian
+ %L&gt; - unsigned 32-bit, big-endian
+ %V  - unsigned 32-bit, little-endian
+ %N  - unsigned 32-bit, big-endian
+ %Q  - unsigned 64-bit
+ %Q&lt; - unsigned 64-bit, little-endian
+ %Q&gt; - unsigned 64-bit, big-endian</pre>
+<p>
+</p>
+<h3><a name="address_format">Address format</a></h3>
+<pre>
+ %a  - 16 bit address
+ %4a - 16 bit address
+ %8a - 32 bit address</pre>
+<p>
+</p>
+<h3><a name="ascii_format">ascii format</a></h3>
+<p>It can not display all chars.
+Fist it must be a printable ascii char.
+It can not be anything of space, q{.}, q{'}, q{&quot;} or q{\}.
+Otherwise q{.} will be printed.</p>
+<pre>
+ %d - display ascii</pre>
+<p>
+</p>
+<h3><a name="repetition">Repetition</a></h3>
+<pre>
+ %*x - repetition endless
+ %1x - repetition 1 time
+ %2x - repetition 2 times
+ ...</pre>
+<p>
+</p>
+<h3><a name="special_formats">Special formats</a></h3>
+<pre>
+ %\n - ignore \n</pre>
+<p>
+</p>
+<h2><a name="default_format">Default format</a></h2>
+<p>The default format is:</p>
+<pre>
+ &quot;%a : %4C : %d\n&quot;</pre>
+<p>or fully written as</p>
+<pre>
+ &quot;%a : %4C : %d\n%*x&quot;</pre>
+<p>
+</p>
+<h2><a name="complex_formats">Complex formats</a></h2>
+<p>The %...x allows to write mixed formats e.g.</p>
+<pre>
+ Format:
+  %a : %N %4C : %d\n%1x%
+  %a : %n %2C : %d\n%*x
+ Input:
+    \0x01\0x23\0x45\0x67\0x89\0xAB\0xCD\0xEF
+    \0x01\0x23\0x45\0x67
+    \0x89\0xAB\0xCD\0xEF
+ Output:
+    0000 : 01234567 89 AB CD EF : .#-Eg...
+    0008 : 0123 45 67 : .#-E
+    000C : 89AB CD EF : g...</pre>
+<p>
+</p>
+<hr />
+<h1><a name="example">EXAMPLE</a></h1>
+<p>Inside of this Distribution is a directory named example.
+Run this *.t files.</p>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>This is a formatter for binary data.</p>
+<p>
+</p>
+<hr />
+<h1><a name="subroutines_methods">SUBROUTINES/METHODS</a></h1>
+<p>
+</p>
+<h2><a name="subroutine_hex_dump">subroutine hex_dump</a></h2>
+<pre>
+    <span class="variable">$string</span> <span class="operator">=</span> <span class="variable">hex_dump</span><span class="operator">(</span>
+        <span class="variable">$binary</span><span class="operator">,</span>
+        <span class="operator">{</span>
+            <span class="string">address</span> <span class="operator">=&gt;</span> <span class="variable">$display_start_address</span><span class="operator">,</span>
+            <span class="string">format</span>  <span class="operator">=&gt;</span> <span class="variable">$format_string</span><span class="operator">,</span>
+        <span class="operator">}</span>
+    <span class="operator">);</span>
+</pre>
+<p>
+</p>
+<hr />
+<h1><a name="diagnostics">DIAGNOSTICS</a></h1>
+<p>nothing</p>
+<p>
+</p>
+<hr />
+<h1><a name="configuration_and_environment">CONFIGURATION AND ENVIRONMENT</a></h1>
+<p>nothing</p>
+<p>
+</p>
+<hr />
+<h1><a name="dependencies">DEPENDENCIES</a></h1>
+<p><a href="../../../../lib/Hash/Util.html">Hash::Util</a></p>
+<p><a href="../../../../site/lib/Perl6/Export/Attrs.html">Perl6::Export::Attrs</a></p>
+<p>
+</p>
+<hr />
+<h1><a name="incompatibilities">INCOMPATIBILITIES</a></h1>
+<p>none</p>
+<p>
+</p>
+<hr />
+<h1><a name="bugs_and_limitations">BUGS AND LIMITATIONS</a></h1>
+<p>none</p>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><a href="../../../../site/lib/Test/HexDifferences.html">Test::HexDifferences</a></p>
+<p><a href="../../../../Data/HexDumper.html">Data::Hexdumper</a> inspired by</p>
+<p>
+</p>
+<hr />
+<h1><a name="author">AUTHOR</a></h1>
+<p>Steffen Winkler</p>
+<p>
+</p>
+<hr />
+<h1><a name="license_and_copyright">LICENSE AND COPYRIGHT</a></h1>
+<p>Copyright (c) 2012,
+Steffen Winkler
+<code>&lt;steffenw at cpan.org&gt;</code>.
+All rights reserved.</p>
+<p>This module is free software;
+you can redistribute it and/or modify it
+under the same terms as Perl itself.</p>
+
+</body>
+
+</html>
